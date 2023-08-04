@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// Import react scroll
-import { Link as LinkScroll } from "react-scroll";
-import ButtonOutline from "../misc/ButtonOutline.";
-import LogoVPN from "../../public/assets/Car.svg";
+import Image from "next/image";
+import { Tabs } from 'antd';
+import { TabsProps } from 'antd';
+import Hero from "../Hero";
 
-const Header = () => {
+
+const Header = ({signIn}) => {
   const [activeLink, setActiveLink] = useState(null);
   const [scrollActive, setScrollActive] = useState(false);
   useEffect(() => {
@@ -13,6 +14,33 @@ const Header = () => {
       setScrollActive(window.scrollY > 20);
     });
   }, []);
+
+  const handleClick = (event) => {
+    console.log(event.target.id);
+  }
+///////////////////////TAB//////////////////////////////
+  const onChange = (key) => {
+    console.log(key);
+  };
+  
+  const items = [
+    {
+      key: '1',
+      label: `Tab 1`,
+      children: <Hero/>,
+    },
+    {
+      key: '2',
+      label: `Tab 2`,
+      children: `Content of Tab Pane 2`,
+    },
+    {
+      key: '3',
+      label: `Tab 3`,
+      children: `Content of Tab Pane 3`,
+    },
+  ];
+
   return (
     <>
       <header
@@ -21,99 +49,66 @@ const Header = () => {
           (scrollActive ? " shadow-md pt-0" : " pt-4")
         }
       >
-        <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-4">
-          <div className="col-start-1 col-end-2 flex items-center">
-            <LogoVPN className="h-16 w-auto"/>
-            <h1 className="font-semibold text-3xl text-blue-500">BluFountain RentACar</h1>
+        <nav className="max-w-screen-xl px-6 sm:px-8 lg:px-10 mx-auto grid grid-flow-col py-3 sm:py-4 ">
+          <div className="flex flex-col border border-gray-500 rounded ">
+          <Image
+              src="/assets/bluflogo.png"
+              width={400}
+              height={100}
+              alt="Logo"    
+            />
           </div>
-          <ul className="hidden lg:flex col-start-4 col-end-8 text-black-500  items-center">
-            <LinkScroll
-              activeClass="active"
-              to="home"
-              spy={true}
-              smooth={true}
-              duration={1000}
-              onSetActive={() => {
-                setActiveLink("home");
-              }}
-              className={
-                "px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative" +
-                (activeLink === "home"
-                  ? " text-blue-500 animation-active "
-                  : " text-black-500 hover:text-blue-500 a")
-              }
-            >
-              Home
-            </LinkScroll>
-            <LinkScroll
-              activeClass="active"
-              to="about"
-              spy={true}
-              smooth={true}
-              duration={1000}
-              onSetActive={() => {
-                setActiveLink("about");
-              }}
-              className={
-                "px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative" +
-                (activeLink === "about"
-                  ? " text-blue-500 animation-active "
-                  : " text-black-500 hover:text-blue-500 ")
-              }
-            >
-              About 
-            </LinkScroll>
-            <LinkScroll
-              activeClass="active"
-              to="pricing"
-              spy={true}
-              smooth={true}
-              duration={1000}
-              onSetActive={() => {
-                setActiveLink("pricing");
-              }}
-              className={
-                "px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative" +
-                (activeLink === "pricing"
-                  ? " text-blue-500 animation-active "
-                  : " text-black-500 hover:text-blue-500 ")
-              }
-            >
-              Services
-            </LinkScroll>
-            <LinkScroll
-              activeClass="active"
-              to="contact"
-              spy={true}
-              smooth={true}
-              duration={1000}
-              onSetActive={() => {
-                setActiveLink("contact");
-              }}
-              className={
-                "px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative" +
-                (activeLink === "contact"
-                  ? " text-blue-500 animation-active "
-                  : " text-black-500 hover:text-blue-500 ")
-              }
-            >
-              Contact
-            </LinkScroll>
-          </ul>
-          <div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
-            <Link href="/Signin">
+
+
+    <div className="nav-menu">
+    {/* <Tabs defaultActiveKey="1" items={items} onChange={onChange} /> */}
+           <Link href="/">
+              <a className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
+                  HOME
+              </a>
+            </Link>
+
+        <ul>
+             <Link href="/branches">
+              <a className="text-black-600 mx-2 sm:mx-4 capitalize p-4 tracking-wide hover:text-orange-500 transition-all">
+                  BRANCHES
+              </a>
+            </Link>
+            <ul className='submenu'>
+            <li > BedfordView </li> 
+            <li onChange={handleClick}> <a id= '1' href='#'>Centurion</a> </li> 
+            <li onClick={() => handleClick()}> <a  id= '2'  href='#'>Edenvale</a> </li> 
+            <li> <a href='#'>Fourways</a> </li> 
+            <li> <a href='#'>Midrand</a> </li> 
+            <li> <a href='#'>Roodepoort</a> </li> 
+            <li> <a href='#'>Sandton</a> </li> 
+            </ul>
+            </ul>
+
+          {/* <Link href="/Signin">
+              <a className="px-3 py-1 text-sm font-normal text-blue-400 bg-white border-2 border-blue-300 rounded-lg hover:bg-blue-400 hover:text-white-500">
+                  Sign In
+              </a>
+            </Link> */}
+            <button onClick={signIn}>
+              <div className="font-medium cursor-pointer text-center tracking-wide py-2 mr-4 text-xs sm:px-2 w-24 border border-blue-500 text-blue-500 bg-white-500 outline-none  rounded-lg capitalize hover:bg-blue-500 hover:text-white-500 transition-all hover:shadow-blue ">
+                Sign in
+              </div>
+            </button>
+
+            {/* <Link href="/Signin">
               <a className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
                   Sign In
               </a>
-            </Link>
-            <ButtonOutline>Sign Up</ButtonOutline>
+            </Link> */}
+            {/* <ButtonOutline>Sign Up</ButtonOutline> */}
           </div>
         </nav>
       </header>
 
       {/* Mobile Navigation */}
 
-      <nav className="fixed lg:hidden bottom-0 left-0 right-0 z-20 px-4 sm:px-8 shadow-t ">
+      {/* <nav className="fixed lg:hidden bottom-0 left-0 right-0 z-20 px-4 sm:px-8 shadow-t ">
         <div className="bg-white-500 sm:px-3">
           <ul className="flex w-full justify-between items-center text-black-500">
             <LinkScroll
@@ -248,7 +243,7 @@ const Header = () => {
         </div>
       </nav>
       {/* End Mobile Navigation */}
-    </>
+    </> 
   );
 };
 

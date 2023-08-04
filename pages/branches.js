@@ -10,10 +10,8 @@ import swal from "sweetalert";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Drawer } from "antd"
-import { Tabs } from 'antd';
-import { TabsProps } from 'antd';
 
-const Hero = () => {
+const Branches = () => {
 
 const [viewDetails, setViewDetails] =useState([])
 const [modal, setModal]= useState(false)
@@ -29,29 +27,6 @@ const [visibleCancel, setVisibleCancel] = useState('')
 const [reschedule, setReschedule] =useState(null)
 const [visibleReschedule, setVisibleReschedule] = useState('')
 
-///////////////////////TAB//////////////////////////////
-const onChange = (key) => {
-  console.log(key);
-};
-
-const items = [
-  {
-    key: '1',
-    label: `Tab 1`,
-    children: <Hero/>,
-  },
-  {
-    key: '2',
-    label: `Tab 2`,
-    children: `Content of Tab Pane 2`,
-  },
-  {
-    key: '3',
-    label: `Tab 3`,
-    children: `Content of Tab Pane 3`,
-  },
-];
-////////////////////////////////////////////////////////////
 
 const selectedId = window.location.search
 const urlParams = new URLSearchParams(selectedId)
@@ -251,7 +226,7 @@ const [heroData, setHeroData] = useState({
               </div>
               </div>
 
-         <div className="flex justify-between">
+              <div className="flex justify-between">
         <div class="mb-2 block min-h-[1.5rem] pl-2 mr-12">
                 <input
                   className=""
@@ -645,10 +620,7 @@ const sessionAppointmentCancelled = () => {
   
   return (
     <>
-
-    {/* <div>
-    <Tabs defaultActiveKey="1" items={items} onChange={onChange} /> 
-    </div> */}
+    <Header />
     <div className="flex justify-end  mt-40">
       <button className=" px-3 py-3 text-sm font-normal hover:text-blue-400 hover:bg-white-300 border-2 border-blue-300 rounded-lg bg-blue-400 text-white-500" onClick={() =>showDrawer2()}>MY BOOKINGS</button>
     </div>
@@ -1121,4 +1093,4 @@ const sessionAppointmentCancelled = () => {
   );
 };
 
-export default Hero;
+export default Branches;

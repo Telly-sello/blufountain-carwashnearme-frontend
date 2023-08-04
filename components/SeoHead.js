@@ -76,7 +76,7 @@ const SeoHead = (props) => {
             content={meta.date}
           />
           <meta
-            name='author'
+            name='Ardlight'
             property='article:author'
             content={meta.author}
           />

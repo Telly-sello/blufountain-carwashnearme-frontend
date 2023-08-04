@@ -102,3 +102,33 @@ li.check:before {
 .complete:not(:first-child):before, .active:not(:first-child):before{
   @apply bg-green-500;
 }
+
+.slide{
+  @apply flex justify-center w-full;
+}
+
+.slide .content{
+  @apply  absolute top-2/3 left-20 border-2 border-blue-500 w-fit p-4  animate-pulse;
+}
+
+
+.submenu{
+  @apply absolute bg-gray-100 w-1/6 top-2/3 right-20 border border-gray-500 hidden;
+}
+
+.submenu li{
+  @apply p-4 border-b border-gray-400 hover:text-blue-500 hover:bg-white-500;
+}
+
+.nav-menu{
+  @apply col-start-10 col-end-12 flex justify-end items-center;
+}
+
+.nav-menu ul:hover > .submenu{
+  @apply block;
+}
+
+/* .nav-menu li:hover > .submenu{
+  display: block;
+  animation: slideup .3s ease;
+} */

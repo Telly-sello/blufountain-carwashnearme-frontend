@@ -1,23 +1,18 @@
-import Feature from "../components/About";
-import Pricing from "../components/Pricing";
-import Hero from "../components/Hero";
-import Layout from "../components/Layout/Layout";
-import About from "../components/About";
-import SeoHead from "../components/SeoHead";
-import Contact from "../components/Contact";
-import BranchesCard from "../components/BranchesCard";
-import {initFirebase} from '../components/firebase/firebaseApp'
-// import { initFirebase } from "../firebase/firebaseApp";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
-export default function Home() {
-  const app = initFirebase()
-  const provider = new GoogleAuthProvider();
+
+import { getAuth } from "firebase/auth";
+import { useRouter } from "next/router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { initFirebase } from '../components/firebase/firebaseApp'
+
+
+
+const Profile = () => {
+ const app = initFirebase;
   const auth = getAuth();
-  const [user, loading] = useAuthState(auth);
   const router = useRouter();
+  const [user, loading] = useAuthState(auth);
 
   if (loading) {
     return (
@@ -45,31 +40,30 @@ export default function Home() {
     );
   }
 
-  if (user) {
-    router.push("/profile");
+  if (!user) {
+    router.push("/");
     return (
       <div className="text-center h-screen flex justify-center items-center text-4xl">
-        Welcome {user.displayName}
+        Please Sign in{" "}
       </div>
     );
   }
 
-  const signIn = async () => {
-    const result = await signInWithPopup(auth, provider);
-    console.log("results", result.user);
-  };
-
   return (
-    <>
-      <SeoHead title='Car Wash Near me' />
-        <Layout  signIn={signIn}>
-        <Hero />     
-        <BranchesCard/> 
-        <About />
-        {/* <Feature /> */}
-        <Contact/>
-        {/* <Pricing /> */}
-      </Layout>
-    </>
+    <div className=" flex w-full justify-center items-center text-xl">
+      <div className="h-screen">
+        <button onClick={(signIn) => auth.signOut()}>
+          <div className="font-medium cursor-pointer text-center tracking-wide py-2 mr-4 text-xs sm:px-2 w-24 border border-blue-500 text-blue-500 bg-white-500 outline-none  rounded-lg capitalize hover:bg-blue-500 hover:text-white-500 transition-all hover:shadow-blue ">
+            Sign out
+          </div>
+        </button>
+        <div className="mb-5 flex justify-center items-center shadow-sm p-5 text-blue-300">
+          <p> Welcome to your profile </p>{" "}
+          <span className="pl-1"> {user.displayName} </span>
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default Profile;
