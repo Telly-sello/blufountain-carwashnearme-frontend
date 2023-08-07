@@ -64,10 +64,10 @@ export default function Home() {
       <SeoHead title='Car Wash Near me' />
         <Layout  signIn={signIn}>
         <Hero />     
-        <BranchesCard/> 
-        <About />
+        {/* <BranchesCard/> 
+        <About /> */}
         {/* <Feature /> */}
-        <Contact/>
+        {/* <Contact/> */}
         {/* <Pricing /> */}
       </Layout>
     </>

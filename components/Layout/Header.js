@@ -15,32 +15,6 @@ const Header = ({signIn}) => {
     });
   }, []);
 
-  const handleClick = (event) => {
-    console.log(event.target.id);
-  }
-///////////////////////TAB//////////////////////////////
-  const onChange = (key) => {
-    console.log(key);
-  };
-  
-  const items = [
-    {
-      key: '1',
-      label: `Tab 1`,
-      children: <Hero/>,
-    },
-    {
-      key: '2',
-      label: `Tab 2`,
-      children: `Content of Tab Pane 2`,
-    },
-    {
-      key: '3',
-      label: `Tab 3`,
-      children: `Content of Tab Pane 3`,
-    },
-  ];
-
   return (
     <>
       <header
@@ -59,16 +33,19 @@ const Header = ({signIn}) => {
             />
           </div>
 
+      <div className="flex justify-end items-center">
+      <h1 className="text-blue-500 font-semibold text-4xl">Blufontain carWash</h1>
+      </div>
 
     <div className="nav-menu">
     {/* <Tabs defaultActiveKey="1" items={items} onChange={onChange} /> */}
-           <Link href="/">
+           {/* <Link href="/">
               <a className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
                   HOME
               </a>
-            </Link>
+            </Link> */}
 
-        <ul>
+        {/* <ul>
              <Link href="/branches">
               <a className="text-black-600 mx-2 sm:mx-4 capitalize p-4 tracking-wide hover:text-orange-500 transition-all">
                   BRANCHES
@@ -83,7 +60,7 @@ const Header = ({signIn}) => {
             <li> <a href='#'>Roodepoort</a> </li> 
             <li> <a href='#'>Sandton</a> </li> 
             </ul>
-            </ul>
+            </ul> */}
 
           {/* <Link href="/Signin">
               <a className="px-3 py-1 text-sm font-normal text-blue-400 bg-white border-2 border-blue-300 rounded-lg hover:bg-blue-400 hover:text-white-500">

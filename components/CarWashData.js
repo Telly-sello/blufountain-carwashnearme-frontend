@@ -98,6 +98,21 @@ export const Branches = [
     location: "Clearwater Shopping Mall",
     image: "https://images.unsplash.com/photo-1549553059-1b9bf4151b4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTN8fGNhcndhc2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
     line1: "Keeping the city clean one car at a time.",
-  
-  }
+  },
+
+  {
+   id:5,
+   name: "Edenvale",
+   location: "Karaglen Shopping Centre",
+   image: "https://images.unsplash.com/photo-1653163050659-77b47c7a745d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fGNhcndhc2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+   line1: "Beyond clean and more than just shine!",
+ },
+ 
+ {
+   id:6,
+   name: "Fourways",
+   location: "Fourways Mall",
+   image: "https://images.unsplash.com/photo-1549553059-1b9bf4151b4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTN8fGNhcndhc2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+   line1: "Keeping the city clean one car at a time.",
+ }
 ]
