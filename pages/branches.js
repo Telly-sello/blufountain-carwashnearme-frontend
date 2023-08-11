@@ -26,6 +26,8 @@ const [cancelBooking, setCancelBooking] =useState(null)
 const [visibleCancel, setVisibleCancel] = useState('')
 const [reschedule, setReschedule] =useState(null)
 const [visibleReschedule, setVisibleReschedule] = useState('')
+const [selectedOption, setSelectedOption] = useState("");
+ const [inputValue, setInputValue] = useState("");
 
 
 const selectedId = window.location.search
@@ -617,6 +619,20 @@ const sessionAppointmentCancelled = () => {
   // ?.filter(
   //   (booking) => booking?.firstName === "Ardlight "
   // );
+
+  const filteredBookings1 = filteredBookings?.filter((booking) => {
+    if (selectedOption === "reference") {
+      return booking?.referenceNumber
+        ?.toLowerCase()
+        ?.includes(inputValue?.toLowerCase());
+    } else if (selectedOption === "Booking Id") {
+      return booking?.referenceNumber
+        ?.toLowerCase()
+        ?.includes(inputValue?.toLowerCase());
+    }
+
+    return filteredBookings;
+  });
   
   return (
     <>

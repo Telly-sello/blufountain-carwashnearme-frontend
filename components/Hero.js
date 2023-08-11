@@ -5,14 +5,11 @@ import { slides } from "../components/Constants";
 import CarWashData from "../components/CarWashData";
 import {TiTick} from 'react-icons/ti'
 import {AiOutlineClose, AiOutlineSearch} from 'react-icons/ai'
-import Header from "../components/Layout/Header";
 import BranchesCard from "../components/BranchesCard";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { Drawer } from "antd"
-import { Tabs } from 'antd';
-import { TabsProps } from 'antd';
+import { Drawer,Tabs, Steps, Tooltip } from "antd"
 import About from "./About";
 import Contact from "./Contact";
 
@@ -23,8 +20,8 @@ const [modal, setModal]= useState(false)
 const [stepper, setStepper] = useState(false)
 const [viewStepper, setViewStepper] = useState("")
 const [currentStep, setCurrentStep ] = useState(1);
+const [current, setCurrent] = useState(0);
 const [complete, setComplete] = useState(false);
-const [drawerDat, setDrawerDat] = useState(null);
 const [viewBookings, setViewBookings] = useState(null)
 const [visibl2, setVisibl2] =useState('')
 const [cancelBooking, setCancelBooking] =useState(null)
@@ -65,10 +62,10 @@ const [heroData, setHeroData] = useState({
 
 
   const [stepperData, setStepperData] = useState({
-      firstName: "Shirley",
-      lastName: "Sam",
-      email:"shirley@gmail.com",
-      phoneNumber: "0704216897",
+      firstName: "",
+      lastName: "",
+      email:"",
+      phoneNumber: "",
       date: "",
       time: ""
     })
@@ -81,6 +78,7 @@ const [heroData, setHeroData] = useState({
      }
    })
 }
+
 
   const UserDetails =() => {
     return (
@@ -131,15 +129,14 @@ const [heroData, setHeroData] = useState({
     );
   }
 
-const  Pickup =() =>{
+ const  Pickup =() =>{
     return(
       <> 
-      <h2 className='flex justify-start font-medium ml-4 '>Carwash Information</h2>
-      <form className="w-full border-2 border-gray-100 ml-4 mb-4 ">
+      <h2 className='flex justify-start text-base font-bold m-4'>Carwash Information</h2>
+      <form className="w-full border-2 border-gray-100  mb-4 ">
         <div className=" flex justify-between  my-2 ">
-
         <div className="flex flex-col w-1/3">
-        <label className="flex ml-3 mt-1 font-medium justify-start" htmlForfor="date">Date:</label>
+        <label className="flex ml-3 mt-1 font-bold justify-start" htmlForfor="date">Date:</label>
         <input 
            type="date"
            id="date"
@@ -151,7 +148,7 @@ const  Pickup =() =>{
         </div>
 
       <div className="flex flex-col w-2/3 ">
-      <label className="flex  mt-4 font-medium justify-start ml-10" htmlfor="returndate">Available time Slots:</label>     
+      <label className="flex  mt-1 font-bold justify-start ml-10" htmlfor="returndate">Available time Slots:</label>     
 
       <div className="w-4/5  border-2 border-gray-100 ml-10">
         <div className="flex justify-between">
@@ -281,9 +278,9 @@ const  Pickup =() =>{
   const Confirmation = () => {
     return(
       <> 
-      <h2 className='flex justify-start font-medium ml-8 '>Verify your information</h2>
+      <h2 className='flex justify-start m-4 text-base font-bold'>Verify your information</h2>
       <div className="w-1/2 border-2 m-6 border-gray-100  flex flex-col justify-center">
-      <div className="m-4 flex flex-col justify-start ">
+      <div className="m-4 flex flex-col justify-start text-base ">
       <h2>Name: {stepperData.firstName} {stepperData.lastName}</h2>
       <h2>Phone: {stepperData.phoneNumber}</h2>
       <h2>Email: {stepperData.email}</h2>
@@ -298,7 +295,7 @@ const  Pickup =() =>{
     )
   }
   
-const steps = ['User details' , 'Carwash info' , 'Confirmation'];
+//const steps = ['User details' , 'Carwash info' , 'Confirmation'];
 
  const getSectionComponent = () => {
     switch(currentStep) {
@@ -361,7 +358,6 @@ const steps = ['User details' , 'Carwash info' , 'Confirmation'];
     const toggleStepper =() =>{
       setStepper(!stepper)
     }
-
 
 
   function handleChange(event) {
@@ -501,7 +497,8 @@ const handleSubmit1 = () => {
      location: heroData.location,
      service: heroData.service,
      bodyType:heroData.bodytype,
-     Price: Prices()
+     Price: Prices(),
+     referenceNumber: "RF" + Math.floor(Math.random() * 9999999)
   };
 
   axios.post("http://localhost:3300/api/PostBooking", reqObject)
@@ -621,6 +618,20 @@ const sessionAppointmentCancelled = () => {
   // ?.filter(
   //   (booking) => booking?.firstName === "Ardlight "
   // );
+
+  //Search by reference, date///////////////
+  const filteredBookings1 = filteredBookings?.filter((booking) => {
+    if (selectedOption === "reference") {
+      return booking?.referenceNumber
+        ?.toLowerCase()
+        ?.includes(inputValue?.toLowerCase());
+    } else if (selectedOption === "Booking Id") {
+      return booking?._id
+        ?.toLowerCase()
+        ?.includes(inputValue?.toLowerCase());
+    }
+    return filteredBookings;
+  });
   
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -630,13 +641,87 @@ const sessionAppointmentCancelled = () => {
     setInputValue("");
   };
 
+  //////////////////Steps/////////////////////
+const steps = [
+  {
+    title: "User Details",
+    content:(
+      <> 
+  <h2 className='flex justify-start text-base font-bold m-4 '>User Details</h2>
+  <div className="w-full flex justify-start">
+   <form className='w-2/3 flex flex-col border-2 mb-2 border-gray-500 m-3 text-base'>
+  <div className='flex w-full justify-between'>
+    <input 
+     type="text" 
+     name="firstName" 
+     placeholder='First Name'
+     onChange={handleStepperChange}
+     value={stepperData.firstName}
+     className='p-2 m-4 border-b-2 border-gray-100 outline-none opacity-50 focus:border-blue-500 placeholder-black-600'
+    />
+
+     <input 
+     type="text" 
+     name="lastName" 
+     placeholder='Last Name'
+     onChange={handleStepperChange}
+     value={stepperData.lastName}
+     className='p-2 m-4 border-b-2 border-gray-100 outline-none opacity-50 focus:border-blue-500 placeholder-black-600'
+    /> 
+  </div>
+
+  <div className='flex w-full justify-between'>
+    <input 
+     type="text" 
+     name="phoneNumber" 
+     placeholder='Phone Number'
+     onChange={handleStepperChange}
+     value={stepperData.phoneNumber}
+     className='p-2 m-4 border-b-2 border-gray-100 outline-none opacity-50 focus:border-blue-500 placeholder-black-600'
+    /> 
+
+    <input type="email" 
+    name="email" 
+    placeholder='Email' 
+     onChange={handleStepperChange}
+     value={stepperData.email}
+    className='p-2 m-4 border-b-2 border-gray-100 outline-none opacity-50 focus:border-blue-500 placeholder-black-600'/>
+    </div>
+    </form>
+  </div>
+  </>
+    ),
+  },
+  {
+    title: "Book",
+    content:<Pickup/>,
+  },
+
+  {
+    title: "Review",
+    content: <Confirmation/>,
+  }
+]
+
+    //stepper
+    const next = () => {
+      setCurrent(current + 1);
+    };
+    const prev = () => {
+      setCurrent(current - 1);
+    };
+
+    const items = steps.map((item) => ({
+      key: item.title,
+      title: item.title,
+    }));
 
 ///////////////////////TABS//////////////////////////////
 const onChange = (key) => {
   console.log(key);
 };
 
-const items = [
+const items1 = [
   {
     key: '1',
     label: `HOME`,
@@ -728,11 +813,11 @@ const items = [
          return(
            <div>
              <div className="flex justify-between w-full p-2 border-b-2 border-gray-100" key={item.id}>
-             <h2 className="font-medium">Blufontain {item.name} carwash is located at {item.location}</h2>
+             <h2 className="font-medium text-base">Blufontain {item.name} carwash is located at {item.location}</h2>
             </div>
 
-            <h3 className="ml-3 mt-2 font-light text-sm">Physical Address: {item.physicalAddress}</h3>
-            <h3 className="ml-3 font-light text-sm ">Contact: {item.contact}</h3>
+            <h3 className="ml-3 mt-2 text-sm">Physical Address: {item.physicalAddress}</h3>
+            <h3 className="ml-3 text-sm ">Contact: {item.contact}</h3>
 
             <div className='flex flex-col full border-solid border-2 border-gray-100 rounded-lg m-2 p-2 mb-4 bg-white-300 shadow-md hover:shadow-xl'>
              
@@ -762,9 +847,11 @@ const items = [
  open={visibl2}
  >
    <div>
+   <Tooltip placement="top" title="close" color="blue">
    <button className='absolute top-4 right-14 cursor-pointer p-1 border-2' onClick={onClose2}>
      <AiOutlineClose size={24} />
      </button>
+     </Tooltip>
    </div>
     <h4 className="text-xl text-blue-500 mb-2 ">Car wash Bookings</h4>
 
@@ -801,7 +888,7 @@ const items = [
               </div>
     </div>
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 <table class="w-full text-sm text-left ">
  <thead class="text-medium  uppercase ">
      <tr>
@@ -827,7 +914,7 @@ const items = [
      </tr>
  </thead>
  <tbody>
- {filteredBookings.map((dat, index) => {
+ {filteredBookings1.map((dat, index) => {
      return (
      <tr key={index} class="bg-white border-b border-gray-100  dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-500 ">
          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -864,9 +951,11 @@ const items = [
    >
 
  <div>
+ <Tooltip placement="top" title="close" color="blue">
    <button className='absolute top-4 right-6 cursor-pointer p-1 border' onClick={onClose1}>
      <AiOutlineClose size={20} />
      </button>
+     </Tooltip>
    </div>
 
    <h4 className="text-xl text-blue-500 my-4">Cancel Appointment</h4>
@@ -973,9 +1062,11 @@ const items = [
    open={visibleReschedule}
    >
    <div>
+   <Tooltip placement="top" title="close" color="blue">
    <button className='absolute top-4 right-6 cursor-pointer p-1 border' onClick={onClose3}>
      <AiOutlineClose size={20} />
      </button>
+     </Tooltip>
    </div>
    <div>
    <h4 className="text-xl text-blue-500 my-4 ">Reschedule Appointment</h4>
@@ -1075,7 +1166,7 @@ const items = [
 )}
 
 
-{stepper && (
+{/* {stepper && (
  <div>
  <div className='fixed insert-0 bg-black-600 bg-opacity-25 backdrop-blur-sm flex justify-center items-center w-full h-full justify-self-center top-0 right-0 z-50'></div>
  <div className='w-2/4 h-6/7 fixed top-1/3 right-60  border-2 border-gray-100 z-50 bg-white-300'>
@@ -1120,7 +1211,6 @@ const items = [
        }}
        className="px-3 py-1 ml-4 text-sm font-normal text-blue-400 bg-white border-2 border-blue-300 rounded-lg hover:bg-blue-400 hover:text-white-500"
      >
-       {/* {currentStep === steps.length ? "Submit" : "Next"} */}
        Next 
        </button>
 
@@ -1139,7 +1229,59 @@ const items = [
      </button>
  </div>
  </div>
-)}
+)} */}
+
+{stepper && (
+          <>
+            <div className="fixed insert-0 bg-black-500 bg-opacity-25 backdrop-blur-sm flex justify-center items-center w-full h-full justify-self-center top-0 right-0  z-50 ">
+              <div className="w-full flex flex-col h-4/5 justify-self-center fixed top-1/3 left-1/4 z-50 ">
+                <Steps current={current} items={items} className="w-1/2 " />
+                <div className="bg-white-500 w-1/2 ">
+                  {steps[current].content}
+                </div>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                  className="w-1/2 mt-4"
+                >
+                  {current < steps.length - 1 && (
+                    <button type="primary" onClick={() => next()}>
+                      <div className="font-medium cursor-pointer text-center tracking-wide py-2 mr-4 text-xs sm:px-2 w-24 border border-blue-500 text-sky-500 bg-white-500 outline-none  rounded-lg capitalize hover:bg-blue-500 hover:text-white-500 transition-all hover:shadow-blue ">
+                        {" "}
+                        Next
+                      </div>
+                    </button>
+                  )}
+                  {current === steps.length - 1 && (
+                    <button
+                      // onClick={() => message.success("Processing complete!")}
+                    >
+                      <div
+                        onClick={buttonClick}
+                        className="font-medium cursor-pointer text-center tracking-wide py-2 mr-4 text-xs sm:px-2 w-24 border border-blue-500 text-sky-500 bg-white-500 outline-none  rounded-lg capitalize hover:bg-blue-500 hover:text-white-500 transition-all hover:shadow-blue "
+                      >
+                        {" "}
+                        Done
+                      </div>
+                    </button>
+                  )}
+                  {current > 0 && (
+                    <button style={{ margin: "0 8px" }} onClick={() => prev()}>
+                      <div className="font-medium cursor-pointer text-center tracking-wide py-2 mr-4 text-xs sm:px-2 w-24 border border-blue-500 text-sky-500 bg-white-500 outline-none  rounded-lg capitalize hover:bg-blue-500 hover:text-white-500 transition-all hover:shadow-blue ">
+                        {" "}
+                        Previous
+                      </div>
+                    </button>
+                  )}
+                </div>
+                <Tooltip placement="top" title="close" color="blue">
+                <button className='fixed top-1/4 right-1/4  cursor-pointer p-1 border-2 hover:border-blue-500' onClick={toggleStepper}>
+     <AiOutlineClose size={24}/>
+     </button>
+     </Tooltip>
+              </div>
+            </div>
+          </>
+        )}
 
 </div> 
 </div>
@@ -1154,20 +1296,19 @@ const items = [
     label: `BRANCHES`,
     children: <BranchesCard />,
   },
-  {
-    key: '3',
-    label: `ABOUT US`,
-    children: <About/>,
-  },
+  // {
+  //   key: '3',
+  //   label: `ABOUT US`,
+  //   children: <About/>,
+  // },
 
-  {
-    key: '4',
-    label: `CONTACT`,
-    children: <Contact/>,
-  },
-];
+  // {
+  //   key: '4',
+  //   label: `CONTACT`,
+  //   children: <Contact/>,
+  // },
+]
 /////////////////////////////////END TABS///////////////////////////
-
 
   return (
     <>
@@ -1181,7 +1322,7 @@ const items = [
       </button> */}
 
     <div className = 'w-full'>
-    <Tabs className = 'w-full ' tabPosition="left" defaultActiveKey="1" items={items} onChange={onChange} /> 
+    <Tabs className = 'w-full font-sans'  defaultActiveKey="1" items={items1} onChange={onChange} /> 
     </div>
     </div>
 

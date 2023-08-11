@@ -10,9 +10,9 @@ const BranchesCard = (props) => {
 
   const branchList = Branches.map( branch =>{
     return (
-      <div  className='flex flex-col w-4/5 items-center border-solid border-2 border-gray-100 rounded-lg m-2 p-2 mb-4 bg-white-300 shadow-md hover:shadow-xl'>
+      <div  className='flex flex-col w-4/5 items-start border-solid border-2 border-gray-100 rounded-lg m-2 p-2 mb-4 bg-white-300 shadow-md hover:shadow-xl'>
         <img className="w-full h-full" src={branch.image} alt="car image"/>
-        <Link  href={{
+        {/* <Link  href={{
           pathname: "/branches",
           query:{
             id: branch.id,
@@ -20,8 +20,11 @@ const BranchesCard = (props) => {
           }
         }}>
         <button  onClick={(e)=> console.log(branch.id)} value='1' className="font-medium border-b-2 border-gray-100 m-3 w-full hover:text-blue-500 cursor-pointer">{branch.name}</button>
-        </Link>
-        <h2 className="text-sm ml-3 text-black-500 ">{branch.location}</h2>
+        </Link> */}
+         <button className="font-medium border-b-2 border-gray-100 m-3 w-full hover:text-blue-500 cursor-pointer">{branch.name}</button>
+        <h2 className="text-sm font-semibold ml-3 text-black-500 ">{branch.location}</h2>
+        <h2 className="text-sm ml-3 text-black-500 ">Address: {branch.physicalAddress}</h2>
+        <h2 className="text-sm ml-3 text-black-500 ">Contact: {branch.contact}</h2>
       </div>
     )
   })
