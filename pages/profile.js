@@ -9,6 +9,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import { Drawer,Tabs, Steps, Tooltip } from "antd"
 import {AiOutlineClose, AiOutlineSearch} from 'react-icons/ai'
+import Hero from "../components/Hero";
 
 
 const Profile = () => {
@@ -399,23 +400,25 @@ const Profile = () => {
 
   return (
     <div className=" flex w-full justify-center items-center text-xl">
-      <div className="h-screen w-full justify-between">
- <div className="w-full flex justify-end ">
-  <button onClick={(signIn) => auth.signOut()}>
-          <div className="font-medium cursor-pointer text-center tracking-wide py-2 mr-4 mt-2 text-xs sm:px-2 w-24 border border-blue-500 text-blue-500 bg-white-500 outline-none  rounded-lg capitalize hover:bg-blue-500 hover:text-white-500 transition-all hover:shadow-blue">
+  <div className="h-screen w-full justify-between ">
+ <div className="w-full flex justify-between">
+ <div className="mb-5 flex justify-center items-center shadow-sm p-2 text-blue-500">
+          <p> Welcome to your profile </p>{" "}
+          <span className="pl-1"> {user.displayName} </span>
+        </div>
+     <button onClick={(signIn) => auth.signOut()}>
+          <div className="font-medium cursor-pointer text-center tracking-wide py-2 mr-4  text-xs sm:px-2 w-24 border border-blue-500 text-blue-500 bg-white-500 outline-none  rounded-lg capitalize hover:bg-blue-500 hover:text-white-500 transition-all hover:shadow-blue">
             Sign out
           </div>
         </button>
  </div>
-        <div className="mb-5 flex justify-center items-center shadow-sm p-5 text-blue-500">
-          <p> Welcome to your profile </p>{" "}
-          <span className="pl-1"> {user.displayName} </span>
-        </div>
+
         {/* <Link href="/bookings"><button className=" px-3 py-3 text-sm font-normal hover:text-blue-400 hover:bg-white-300 border-2 border-blue-300 rounded-lg bg-blue-400 text-white-500">MY BOOKINGS</button></Link> */}
 
-        <div className = 'w-full'>
+      <div className = 'w-full'>
      <Tabs className = 'w-full font-sans font-medium'  defaultActiveKey="1" centered items={items} onChange={onChange} /> 
     </div>
+    <div className="top-0"><Hero/></div>
       </div>
 
 {cancelBooking && (

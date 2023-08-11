@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Tabs } from 'antd';
-import { TabsProps } from 'antd';
-import Hero from "../Hero";
 
 
 const Header = ({signIn}) => {
@@ -38,7 +35,6 @@ const Header = ({signIn}) => {
       </div>
 
     <div className="nav-menu">
-    {/* <Tabs defaultActiveKey="1" items={items} onChange={onChange} /> */}
            {/* <Link href="/">
               <a className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
                   HOME
@@ -73,12 +69,6 @@ const Header = ({signIn}) => {
               </div>
             </button>
 
-            {/* <Link href="/Signin">
-              <a className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
-                  Sign In
-              </a>
-            </Link> */}
-            {/* <ButtonOutline>Sign Up</ButtonOutline> */}
           </div>
         </nav>
       </header>

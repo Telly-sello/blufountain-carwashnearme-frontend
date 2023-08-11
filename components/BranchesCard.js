@@ -4,10 +4,6 @@ import Link from "next/link";
 
 const BranchesCard = (props) => {
 
-  const handleInput =(e) =>{
-    console.log(e.target); 
-}
-
   const branchList = Branches.map( branch =>{
     return (
       <div  className='flex flex-col w-4/5 items-start border-solid border-2 border-gray-100 rounded-lg m-2 p-2 mb-4 bg-white-300 shadow-md hover:shadow-xl'>
