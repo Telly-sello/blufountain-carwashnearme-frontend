@@ -1,64 +1,128 @@
-import { Fragment, useState } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import {BiChevronDown, BiCheck} from 'react-icons/bi'
+import React from "react";
+import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+import { Dropdown, Space } from "antd";
+import Image from "next/image";
 
-export default function Dropdown({title, options}) {
-  const [selected, setSelected] = useState(options[0])
-
-  //console.log(selected)
-
-  return (
-    <div className='flex justify-between w-fit p-2'>
-      <Listbox value={selected} onChange={setSelected}>
-        {/* <div className='relative w-fit z-10'> */}
-        <div className='relative w-fit'>
-          
-        <Listbox.Button className="relative w-full min-w-[127px] flex justify-between items-center cursor-default border-solid border-gray-500 rounded-lg bg-white py-2 px-3 text-left shadow-md sm:text-sm border">
-            <span className="block truncate">{selected.title}</span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-            </span>
-            <BiChevronDown size={20}/> 
-          </Listbox.Button>
-          <Transition
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+const DropdownApp = ({ user, name }) => {
+  const items = [
+    {
+      key: "1",
+      label: (
+        <a
+          className="flex"
+          rel="noopener noreferrer"
+          href="http://localhost:3000"
+        >
+          <svg
+            className="flex-shrink-0 w-5 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-100 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {options.map((option, Index) => (
-                <Listbox.Option
-                  key={Index}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-blue-300 text-white-500' : 'text-gray-900'
-                    }`
-                  }
-                  value={option}
-                >
-                  {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate ${
-                          selected ? 'font-medium' : 'font-normal'
-                        }`}
-                      >
-                        {/* {option.value ? (option.value) : (option.title)}  */}
-                        {option.value}
-                      </span>
-                      {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          < BiCheck className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Transition>
-        </div>
-      </Listbox>
-    </div>
-  )
-}
+            <path
+              fill-rule="evenodd"
+              d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <p className="ml-1 text-black-600">BluFountain</p>
+        </a>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <a
+          className="flex"
+          rel="noopener noreferrer"
+          href="http://localhost:3001"
+        >
+          <Image src={"/assets/hairdresser.png"} width={20} height={19} />{" "}
+          <p className="ml-1 text-black-600">Find A Barber</p>
+        </a>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <a
+        className="flex"
+        rel="noopener noreferrer"
+        href="http://localhost:3002"
+      >
+        <Image src={"/assets/haircut.png"} width={20} height={19} />{" "}
+        <p className="ml-1 text-black-600">Book A Saloon</p>
+      </a>
+      ),
+    },
+    {
+      key: "4",
+      label: (
+        <a
+          className="flex"
+          rel="noopener noreferrer"
+          href="http://localhost:3003"
+        >
+          <Image src={"/assets/talk to clients.png"} width={20} height={19} />{" "}
+          <p className="ml-1 text-black-600"> Get A Lawyer</p>
+        </a>
+      ),
+    },
+    // {
+    //   key: "5",
+    //   label: (
+    //     <a
+    //     className="flex"
+    //     rel="noopener noreferrer"
+    //     href="http://localhost:3004"
+    //   >
+    //     <Image src={"/assets/value mycar.png"} width={20} height={19} />{" "}
+    //     <p className=" ml-1 text-black-600">CarWash NearMe</p>
+    //   </a>
+    //   ),
+    // },
+    // {
+    //   key: "5",
+    //   danger: true,
+    //   label: (
+    //     <div className="flex">
+    //       <svg
+    //         className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+    //         fill="currentColor"
+    //         viewBox="0 0 20 20"
+    //         xmlns="http://www.w3.org/2000/svg"
+    //       >
+    //         <path
+    //           fill-rule="evenodd"
+    //           d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+    //           clip-rule="evenodd"
+    //         ></path>
+    //       </svg>
+    //       <a rel="noopener noreferrer" href="/">
+    //         Sign Out
+    //       </a>
+    //     </div>
+    //   ),
+    //   disabled: true,
+    // },
+  ];
+  return (
+    <Dropdown
+      menu={{
+        items,
+      }}
+    >
+      <a onClick={(e) => e.preventDefault()}>
+        <Space>
+          <div className="text-[17px] flex -mt-1 font-thin">
+            <p className="pr-1">Apps</p>
+            <div className="-mt-1">
+              <DownOutlined />
+            </div>
+          </div>
+        </Space>
+      </a>
+    </Dropdown>
+  );
+};
+export default DropdownApp;

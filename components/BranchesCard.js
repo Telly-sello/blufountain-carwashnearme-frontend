@@ -6,7 +6,7 @@ const BranchesCard = (props) => {
 
   const branchList = Branches.map( branch =>{
     return (
-      <div  className='flex flex-col w-4/5 items-start border-solid border-2 border-gray-100 rounded-lg m-2 p-2 mb-4 bg-white-300 shadow-md hover:shadow-xl'>
+      <div  className='flex flex-col  items-start border-solid border-2 border-gray-100 rounded-lg m-2 p-2 mb-4 bg-white-300 shadow-md hover:shadow-xl'>
         <img className="w-full h-full" src={branch.image} alt="car image"/>
         {/* <Link  href={{
           pathname: "/branches",
@@ -29,7 +29,7 @@ const BranchesCard = (props) => {
 
     <div className='flex flex-col items-center w-full'>
     <h1 className='text-2xl sm:text-3xl lg:text-4xl font-medium text-black-600 leading-relaxed border-b-2 border-blue-500 mb-10'>Our Branches</h1>
-    <div className="w-3/4 grid grid-cols-3 gap-4">
+    <div className="w grid grid-cols-3 gap-4">
     {branchList}
     </div>
 </div>

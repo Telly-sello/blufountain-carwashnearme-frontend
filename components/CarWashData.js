@@ -43,8 +43,7 @@ const CarWashData = [
       physicalAddress: "Tempest Rd, Morningside, Sandton, 2057",
       contact: "(011) 813 7890",
       googleMaps: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3583.2323134490343!2d28.056960615027677!3d-26.091334183488204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9573215cd42713%3A0xf073c8bc39ab93ed!2sSpringwood!5e0!3m2!1sen!2sza!4v1689759791703!5m2!1sen!2sza" ,
-   },
-
+   },  
    {
       id: 6,
       location: "Fourways Mall",
